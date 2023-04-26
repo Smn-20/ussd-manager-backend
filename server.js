@@ -27,7 +27,7 @@ app.listen(port, () => {
 
 
 app.get('/', (req, res) => {
-    res.send("Succes Message")
+    res.send("SuccesS Message")
 })
 
 
