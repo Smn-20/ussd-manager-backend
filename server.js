@@ -1,6 +1,25 @@
 const axios = require('axios');
 const express = require('express')
 const bodyParser = require("body-parser")
+const xmlParser = require("express-xml-bodyparser")
+const xml = require('xml')
+
+
+
+function transformCommand(command) {
+    const newCommand = {
+      COMMAND: []
+    };
+  
+    for (let key in command) {
+        if(key.toUpperCase()!=="FROMMULTIUSSD" && key.toUpperCase()!=="SPID" && key.toUpperCase()!=="AGENTID" && key.toUpperCase()!=="RESUME" && key.toUpperCase()!=="INPUT" )
+      newCommand.COMMAND.push({ [key.toUpperCase()]: command[key] });
+    }
+    newCommand.COMMAND.push({ MESSAGE: [`Your phone number is: ^^ ${command.msisdn[0]}`] });
+    newCommand.COMMAND.push({ FREEFLOW: ['B'] });
+    newCommand.COMMAND.push({ MENUS: ['1. First menu'] });
+    return newCommand;
+  }
 
 
 
@@ -8,6 +27,7 @@ const app = express()
 const port = process.env.PORT || 4000
 // middleware
 app.use(express.json())
+app.use(xmlParser())
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
@@ -27,28 +47,19 @@ app.listen(port, () => {
 
 
 app.get('/', (req, res) => {
-    res.send("SuccesS Message")
+    res.send("Success Message")
 })
 
 
 
 
 app.post('/', (req, res) => {
-    const { SESSIONID, MSISDN, INPUT, NEWREQUEST } = req.body
     
+    response = transformCommand(req.body.command)
 
-        response = JSON.stringify({
-            "MSISDN": MSISDN,
-            "SESSIONID": SESSIONID,
-            "FREEFLOW": "C",
-            "MESSAGE": `MSISDN ${MSISDN}, SESSIONID ${SESSIONID}, INPUT ${INPUT}, NEWREQUEST ${NEWREQUEST}`,
-            "NEWREQUEST": 0,
-            "MENUS": "menus",
-        });
-
-
-        res.send(response);
-        res.end
+    res.set('Content-type','text/xml')
+    res.send(xml(response,true));
+    res.end
 
    
 
