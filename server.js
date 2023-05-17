@@ -17,7 +17,7 @@ function transformCommand(command) {
     }
     newCommand.COMMAND.push({ MESSAGE: [`Your phone number is: ^^ ${command.msisdn[0]}`] });
     newCommand.COMMAND.push({ FREEFLOW: ['B'] });
-    newCommand.COMMAND.push({ MENUS: ['1. First menu'] });
+    newCommand.COMMAND.push({ MENUS: {} });
     return newCommand;
   }
 
