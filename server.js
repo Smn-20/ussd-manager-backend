@@ -17,6 +17,10 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+
+
+
 app.listen(port, () => {
     console.log("listening", port)
 })
@@ -246,6 +250,7 @@ app.post('/', (req, res) => {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
                                 }
+
                             }).then((resp) => {
                                 console.log(resp.data.response)
                                 message = "Select Village \n";
@@ -288,6 +293,9 @@ app.post('/', (req, res) => {
                 }
 
             }
+
+
+
 
             if (array.length === 8) {
 
@@ -441,6 +449,12 @@ app.post('/', (req, res) => {
                     }).catch((error) => {
                         console.log(error)
                     })
+
+
+
+
+
+
                 }
             }
 
