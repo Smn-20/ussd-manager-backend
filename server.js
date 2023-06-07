@@ -15,7 +15,7 @@ function transformCommand(command) {
         if(key.toUpperCase()!=="FROMMULTIUSSD" && key.toUpperCase()!=="SPID" && key.toUpperCase()!=="AGENTID" && key.toUpperCase()!=="RESUME" && key.toUpperCase()!=="INPUT" )
       newCommand.COMMAND.push({ [key.toUpperCase()]: command[key] });
     }
-    newCommand.COMMAND.push({ MESSAGE: [`Your phone number is: ^^ ${command.msisdn[0]}  ^^ ${command.newrequest[0]} ${command.spid[0]} ^^ ${command.agentid[0]}`] });
+    newCommand.COMMAND.push({ MESSAGE: [`Your phone number is: ^^ ${command.msisdn[0]}  ^^ ${command.newrequest[0]}`] });
     newCommand.COMMAND.push({ FREEFLOW: ['C'] });
     newCommand.COMMAND.push({ MENUS: {} });
     return newCommand;
