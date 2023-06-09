@@ -4,9 +4,9 @@ const bodyParser = require("body-parser")
 const xmlParser = require("express-xml-bodyparser")
 const xml = require('xml')
 
+var myparam ="124*313"
 
-
-function transformCommand(command) {
+function transformCommand(command,newInput) {
     const newCommand = {
       COMMAND: []
     };
@@ -15,7 +15,7 @@ function transformCommand(command) {
         if(key.toUpperCase()!=="FROMMULTIUSSD" && key.toUpperCase()!=="SPID" && key.toUpperCase()!=="AGENTID" && key.toUpperCase()!=="RESUME" && key.toUpperCase()!=="INPUT" )
       newCommand.COMMAND.push({ [key.toUpperCase()]: command[key] });
     }
-    newCommand.COMMAND.push({ MESSAGE: [`Your phone number is: ^^ ${command.msisdn[0]}  ^^ ${command.newrequest[0]}`] });
+    newCommand.COMMAND.push({ MESSAGE: [`Your phone number is: ^^ ${command.msisdn[0]}  ^^ ${command.newrequest[0]} ^^ ${newInput}`] });
     newCommand.COMMAND.push({ FREEFLOW: ['C'] });
     newCommand.COMMAND.push({ MENUS: {} });
     return newCommand;
@@ -29,10 +29,20 @@ const port = process.env.PORT || 4000
 app.use(express.json())
 app.use(xmlParser())
 
-app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next()
-})
+
+const addParamsMiddleware = (req, res, next) => {
+  if(req.body.command.input[0]!=="124*313" &&req.body.command.input[0]!==""){
+    myparam = myparam+"*"+req.body.command.input[0]
+  }
+  req.body["newInput"]=myparam
+  req.query.q=myparam
+  next();
+};
+
+app.use(addParamsMiddleware);
+
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,10 +62,9 @@ app.get('/', (req, res) => {
 
 
 
-
 app.post('/', (req, res) => {
-    
-    response = transformCommand(req.body.command)
+    console.log(req.query.q)
+    response = transformCommand(req.body.command,req.body.newInput)
 
     res.set('Content-type','text/xml')
     res.send(xml(response,true));
