@@ -4,7 +4,9 @@ const bodyParser = require("body-parser")
 const xmlParser = require("express-xml-bodyparser")
 const xml = require('xml')
 
-var myparam ="124*313"
+var myparam ={}
+
+let lastDeletionTime = Date.now();
 
 function transformCommand(command,newInput) {
     const newCommand = {
@@ -31,11 +33,36 @@ app.use(xmlParser())
 
 
 const addParamsMiddleware = (req, res, next) => {
-  if(req.body.command.input[0]!=="124*313" &&req.body.command.input[0]!==""){
-    myparam = myparam+"*"+req.body.command.input[0]
+  const currentTime = Date.now();
+  const tenMinutes = 3 * 60 * 1000; // 10 minutes in milliseconds
+
+  // Check if ten minutes have passed since the last deletion
+  if (currentTime - lastDeletionTime >= tenMinutes) {
+    console.log("haha")
+    myparam = {}
+    req.query["myinput"] = ""; 
+    if(req.body.command.input[0]!=="124*313" &&req.body.command.input[0]!==""){
+      myparam[req.body.command.sessionid[0]] = req.body.command.input[0]
+      }// Clear req.query object
+    lastDeletionTime = currentTime; 
+    req.query["myinput"]=myparam// Update the last deletion time
   }
-  req.body["newInput"]=myparam
-  req.query.q=myparam
+  else{
+    if (myparam[req.body.command.sessionid[0]] !== undefined) {
+      if(req.body.command.input[0]!=="124*313" &&req.body.command.input[0]!==""){
+      myparam[req.body.command.sessionid[0]] = myparam[req.body.command.sessionid[0]]+"*"+req.body.command.input[0]
+      }
+    }
+    else{
+      if(req.body.command.input[0]!=="124*313" &&req.body.command.input[0]!==""){
+        myparam[req.body.command.sessionid[0]] = req.body.command.input[0]
+        }
+    }
+    req.query["myinput"]=myparam
+  }
+  
+  
+  
   next();
 };
 
@@ -63,8 +90,8 @@ app.get('/', (req, res) => {
 
 
 app.post('/', (req, res) => {
-    console.log(req.query.q)
-    response = transformCommand(req.body.command,req.body.newInput)
+    var sessionId = req.body.command.sessionid[0]
+    response = transformCommand(req.body.command,req.query["myinput"][sessionId])
 
     res.set('Content-type','text/xml')
     res.send(xml(response,true));
