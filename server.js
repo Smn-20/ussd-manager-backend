@@ -155,7 +155,7 @@ app.post('/', (req, res) => {
                         };
 
                         axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
-                            message = `Household code: ${resp.data.response.code} \nHousehold size: ${resp.data.response.size} \nLODA Code: ${resp.data.response.lodaHouseholdCode}  \nTarget program: ${resp.data.response.targetingProgram} \n Score: ${resp.data.response.score}`;
+                            message = `Head ID: ${resp.data.response.householdHead.nationalId} \nHead names:${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName} \nHousehold code: ${resp.data.response.code} \nHousehold size: ${resp.data.response.size} \nTarget program: ${resp.data.response.targetingProgram} \n `;
                             continueSession = 0
                             response = JSON.stringify({
                                 "sessionId": sessionId,
@@ -357,8 +357,6 @@ app.post('/', (req, res) => {
                                             'memberDocumentNumber': array[4]
                                         })
                                     };
-
-
 
                                     axios.request(options_).then(function (response) {
                                         console.log(response.data.response)
