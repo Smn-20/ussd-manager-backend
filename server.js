@@ -127,7 +127,7 @@ app.post('/', (req, res) => {
           if (response.data.status == true) {
 
              
-              response_ = transformCommand(req.body.command,"Murakaza neza kuri Social registry ^ 1. Amakuru y’urugo. ^ 2. Kwimuka ^ 3. Kujuririra amakuru","C")
+              response_ = transformCommand(req.body.command,"Ikaze kuri Social registry ^ 1) Amakuru y’urugo. ^ 2) Kwimuka ^3) Kujuririra amakuru","C")
 
               res.set('Content-type','text/xml')
               res.send(xml(response_,true));
@@ -156,7 +156,7 @@ app.post('/', (req, res) => {
 
     if (array.length === 4) {
       if (array[3] == "1") {
-          response_ = transformCommand(req.body.command,"1. Amakuru yimbitse y’urugo. ^ 2. Abagize urugo","C")
+          response_ = transformCommand(req.body.command,"1) Amakuru yimbitse y’urugo ^ 2) Abagize urugo","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
@@ -173,18 +173,13 @@ app.post('/', (req, res) => {
 
       if (array[3] == "3") {
 
-          response_ = transformCommand(req.body.command,"Hitamo ^ 1. Abanyamuryango ^ 2. Ibikorwa ugenewe ^ 3. Ishusho rusange y’umutungo","C")
+          response_ = transformCommand(req.body.command,"Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y’umutungo","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
           res.end
       }
     }
-
-
-
-
-
 
     if (array.length === 5) {
       if (array[3] == "1") {
@@ -414,17 +409,8 @@ app.post('/', (req, res) => {
               console.log(error)
           })
 
-
-
-
-
-
       }
   }
-    
-
-   
-
 
 })
 
