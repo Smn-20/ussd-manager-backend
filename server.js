@@ -102,7 +102,7 @@ app.post('/', (req, res) => {
 
     console.log(array)
     if(array.length === 2){
-      response_ = transformCommand(req.body.command,"Murakaza neza kuri Social registry ^^ Shyiramo nomero yawe y'indangamuntu","C")
+      response_ = transformCommand(req.body.command,"Murakaza neza kuri Social registry ^ Shyiramo nomero yawe y'indangamuntu","C")
       res.set('Content-type','text/xml')
       res.send(xml(response_,true));
       res.end
@@ -127,7 +127,7 @@ app.post('/', (req, res) => {
           if (response.data.status == true) {
 
              
-              response_ = transformCommand(req.body.command,"Murakaza neza kuri Social registry ^^ 1. Amakuru y’urugo. ^^ 2. Kwimuka ^^ 3. Kujuririra amakuru","C")
+              response_ = transformCommand(req.body.command,"Murakaza neza kuri Social registry ^ 1. Amakuru y’urugo. ^ 2. Kwimuka ^ 3. Kujuririra amakuru","C")
 
               res.set('Content-type','text/xml')
               res.send(xml(response_,true));
@@ -156,7 +156,7 @@ app.post('/', (req, res) => {
 
     if (array.length === 4) {
       if (array[3] == "1") {
-          response_ = transformCommand(req.body.command,"1. Amakuru yimbitse y’urugo. ^^ 2. Abagize urugo","C")
+          response_ = transformCommand(req.body.command,"1. Amakuru yimbitse y’urugo. ^ 2. Abagize urugo","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
@@ -164,7 +164,7 @@ app.post('/', (req, res) => {
       }
 
       if (array[3] == "2") {
-          response_ = transformCommand(req.body.command,"Andika UPI yaho ushaka kwimukira ^^","C")
+          response_ = transformCommand(req.body.command,"Andika UPI yaho ushaka kwimukira ^","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
@@ -173,7 +173,7 @@ app.post('/', (req, res) => {
 
       if (array[3] == "3") {
 
-          response_ = transformCommand(req.body.command,"Hitamo ^^ 1. Abanyamuryango ^^ 2. Ibikorwa ugenewe ^^ 3. Ishusho rusange y’umutungo","C")
+          response_ = transformCommand(req.body.command,"Hitamo ^ 1. Abanyamuryango ^ 2. Ibikorwa ugenewe ^ 3. Ishusho rusange y’umutungo","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
@@ -199,7 +199,7 @@ app.post('/', (req, res) => {
 
               axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
                   console.log(resp.data)
-                  response_ = transformCommand(req.body.command,`Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^^ Kode: ${resp.data.response.code} ^^ Ingano : ${resp.data.response.size} ^^ Porogarumu: ${resp.data.response.targetingProgram}`,"B")
+                  response_ = transformCommand(req.body.command,`Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Ingano : ${resp.data.response.size} ^ Porogarumu: ${resp.data.response.targetingProgram}`,"B")
 
                   res.set('Content-type','text/xml')
                   res.send(xml(response_,true));
@@ -227,11 +227,11 @@ app.post('/', (req, res) => {
                       }
                   }).then((resp) => {
                       console.log(resp.data.response.members)
-                      var members = "Abagize urugo ^^";
+                      var members = "Abagize urugo ^";
 
                       if (resp.data.response.members.length > 0) {
                           for (var i = 0; i < resp.data.response.members.length; i++) {
-                            members += `${i + 1}. ${resp.data.response.members[i].firstName} ${resp.data.response.members[i].lastName} ^^`
+                            members += `${i + 1}. ${resp.data.response.members[i].firstName} ${resp.data.response.members[i].lastName} ^`
                           }
                       }
                       else {
@@ -255,7 +255,7 @@ app.post('/', (req, res) => {
           }
       }
       if (array[3] == "3") {
-          response_ = transformCommand(req.body.command,"Andika Impamvu ^^","C")
+          response_ = transformCommand(req.body.command,"Andika Impamvu ^","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
@@ -286,11 +286,11 @@ app.post('/', (req, res) => {
 
                   }).then((resp) => {
                       console.log(resp.data.response)
-                      var villages = "Select Village ^^";
+                      var villages = "Select Village ^";
 
                       if (resp.data.response.length > 0) {
                           for (var i = 0; i < resp.data.response.length; i++) {
-                              villages += `${i + 1}. ${resp.data.response[i].name} ^^`
+                              villages += `${i + 1}. ${resp.data.response[i].name} ^`
                           }
                       }
                       else {
@@ -397,7 +397,7 @@ app.post('/', (req, res) => {
                           axios.request(options_).then(function (response) {
                               console.log(response.data.response)
                               if (response.data.status == true) {
-                                  var transMessage = "Ubasabe bwakiriwe ^^";
+                                  var transMessage = "Ubasabe bwakiriwe ^";
                               }
                               else {
                                 var transMessage = response.data.response;
@@ -461,10 +461,10 @@ app.post('/', (req, res) => {
               axios.request(options_).then(function (response) {
                   console.log(response.data)
                   if (response.data.status == true) {
-                      var appealMessage = "Ubasabe bwakiriwe ^^";
+                      var appealMessage = "Ubasabe bwakiriwe ^";
                   }
                   else {
-                    var appealMessage = "Appeal request failed ^^";
+                    var appealMessage = "Appeal request failed ^";
                   }
                   response_ = transformCommand(req.body.command,appealMessage,"B")
 
