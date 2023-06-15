@@ -274,96 +274,21 @@ app.post('/', (req, res) => {
           };
 
           axios.get(`https://api-gateway.uat.minaloc.gov.rw/land/upi/details`, options).then((resp) => {
-              console.log(resp.data.response)
-              if (resp.data.status == true) {
-                  const cellCode = resp.data.response.parcelLocation.cell.cellCode
-                  const _cellCode = cellCode.substring(0, 1) + cellCode.substring(2);
-                  axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/locations/villages/cell/code/${_cellCode}`, {
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': `Bearer ${token}`,
-                      }
-
-                  }).then((resp) => {
-                      console.log(resp.data.response)
-                      var villages = "Select Village ^^";
-
-                      if (resp.data.response.length > 0) {
-                          for (var i = 0; i < resp.data.response.length; i++) {
-                              villages += `${i + 1}. ${resp.data.response[i].name} ^^`
-                          }
-                      }
-                      else {
-                          villages = 'Nta mudugudu ubonetse'
-                      }
-                      response_ = transformCommand(req.body.command,villages,"C")
-
-                      res.set('Content-type','text/xml')
-                      res.send(xml(response_,true));
-                      res.end
-                  }).catch((error) => {
-                      console.log(error)
-                  })
-
-              }
-              else {
-                response_ = transformCommand(req.body.command,"Mwanditse UPI itariyo","B")
-
-                res.set('Content-type','text/xml')
-                res.send(xml(response_,true));
-                res.end
-              }
-          }).catch((error) => {
-              console.log(error)
-          })
-
-      }
-
-    }
-
-
-
-    if (array.length === 6) {
-
-      if (array[3] == "2") {
-
-
-          const options = {
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`,
-                  'upi': array[4],
-              }
-          };
-
-          axios.get(`https://api-gateway.uat.minaloc.gov.rw/land/upi/details`, options).then((resp) => {
-              console.log(resp.data.response)
+            //   console.log(resp.data.response)
               const upiInfo = resp.data.response
-              if (resp.data.status == true) {
-                  const cellCode = resp.data.response.parcelLocation.cell.cellCode
-                  const _cellCode = cellCode.substring(0, 1) + cellCode.substring(2);
-                  axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/locations/villages/cell/code/${_cellCode}`, {
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': `Bearer ${token}`,
-                      }
-
-                  }).then((resp) => {
-                      let villageId;
-                      for (var i = 0; i < resp.data.response.length; i++) {
-                          if (array[5] == i + 1) {
-                              villageId = resp.data.response[i].id
-                          }
-                      }
-                      const options__ = {
-                          headers: {
-                              'Content-Type': 'application/json',
-                              'Authorization': `Bearer ${token}`,
-                              'documentNumber': array[2],
-                          }
-                      };
+                if (resp.data.status == true) {
+                  const villageCode = resp.data.response.parcelLocation.village.villageCode
+                  const _villageCode = villageCode.substring(0, 1) + villageCode.substring(2);
+                  const options__ = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                        'documentNumber': array[2],
+                    }
+                };
 
                       axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options__).then((resp) => {
+                            console.log(resp.data)
                           const options_ = {
                               method: 'POST',
                               url: 'https://api-gateway.uat.minaloc.gov.rw/households/transfer',
@@ -373,25 +298,27 @@ app.post('/', (req, res) => {
                               },
                               data: JSON.stringify({
                                   "householdId": resp.data.response.id,
-                                  "villageId": villageId,
+                                  "villageCode": _villageCode,
                                   'upi': upiInfo.upi,
-                                  'latitude': upiInfo.centralCoordinate.y,
-                                  'longitude': upiInfo.centralCoordinate.x,
+                                  'latitude': upiInfo.centralCoordinate.lat,
+                                  'longitude': upiInfo.centralCoordinate.lon,
                                   'userType': 'CITIZEN',
                                   'event': "REQUEST",
-                                  'memberDocumentNumber': array[2]
+                                  'memberDocumentNumber': array[2],
+                                  'phoneNumber':req.body.command.msisdn[0].slice(2)
                               })
                           };
 
                           console.log(JSON.stringify({
                             "householdId": resp.data.response.id,
-                            "villageId": villageId,
+                            "villageId": _villageCode,
                             'upi': upiInfo.upi,
-                            'latitude': upiInfo.centralCoordinate.y,
-                            'longitude': upiInfo.centralCoordinate.x,
+                            'latitude': upiInfo.centralCoordinate.lat,
+                            'longitude': upiInfo.centralCoordinate.lon,
                             'userType': 'CITIZEN',
                             'event': "REQUEST",
-                            'memberDocumentNumber': array[2]
+                            'memberDocumentNumber': array[2],
+                            'phoneNumber':req.body.command.msisdn[0].slice(2)
                         }))
 
                           axios.request(options_).then(function (response) {
@@ -415,21 +342,29 @@ app.post('/', (req, res) => {
                       })
 
 
-                  }).catch((error) => {
-                      console.log(error)
-                  })
+                
 
               }
+              else {
+                response_ = transformCommand(req.body.command,"Mwanditse UPI itariyo","B")
 
+                res.set('Content-type','text/xml')
+                res.send(xml(response_,true));
+                res.end
+              }
           }).catch((error) => {
               console.log(error)
           })
 
-
       }
 
+    }
 
 
+
+    if (array.length === 6) {
+
+      
       if (array[3] == "3") {
 
           const options = {
@@ -453,7 +388,8 @@ app.post('/', (req, res) => {
                       "documentNumber": array[2],
                       "option": array[4] == 1 ? "PERSONAL_INFO" : (array[4] == 2 ? "ENROLLED_PROGRAM" : "SOCIAL_ECONOMIC"),
                       "description": array[5],
-                      "householdID": resp.data.response.id
+                      "householdID": resp.data.response.id,
+                      'phoneNumber':req.body.command.msisdn[0].slice(2)
                   })
               };
 
