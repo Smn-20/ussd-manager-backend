@@ -127,7 +127,7 @@ app.post('/', (req, res) => {
           if (response.data.status == true) {
 
              
-              response_ = transformCommand(req.body.command,"Ikaze kuri Social Registry ^ 1)Amakuru y'urugo ^ 2) Kwimuka ^ 3) Kujuririra amakuru ^ ","C")
+              response_ = transformCommand(req.body.command,"Ikaze kuri Social Registry ^ 1) Amakuru y'urugo ^ 2) Kwimuka ^ 3) Kujuririra amakuru ^ ","C")
 
               res.set('Content-type','text/xml')
               res.send(xml(response_,true));
@@ -173,7 +173,7 @@ app.post('/', (req, res) => {
 
       if (array[3] == "3") {
 
-          response_ = transformCommand(req.body.command,"Hitamo ^ 1)Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^ 4) simon the servetor","C")
+          response_ = transformCommand(req.body.command,"Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
