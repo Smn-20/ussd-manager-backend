@@ -173,7 +173,7 @@ app.post('/', (req, res) => {
 
       if (array[3] == "3") {
 
-          response_ = transformCommand(req.body.command,"Hitamo ^ 1)Amakuru ynshcdms nburugo ^ 2) Kwimuka ^ 3) Kujuririra amakuru","C")
+          response_ = transformCommand(req.body.command,"Hitamo ^ 1)Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Kujuririra amakuru","C")
 
           res.set('Content-type','text/xml')
           res.send(xml(response_,true));
