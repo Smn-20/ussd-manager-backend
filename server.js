@@ -127,7 +127,7 @@ app.post('/', (req, res) => {
           if (response.data.status == true) {
 
              
-              response_ = transformCommand(req.body.command,"Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y’umutungo","C")
+              response_ = transformCommand(req.body.command,"Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y’umutungo","B")
 
               res.set('Content-type','text/xml')
               res.send(xml(response_,true));
