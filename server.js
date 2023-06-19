@@ -524,7 +524,7 @@ app.post('/', (req, res) => {
 
                     axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
                         console.log(resp.data)
-                        if (program = null) {
+                        if (program == null) {
                             program = "Ntayo"
                         }
                         else {
