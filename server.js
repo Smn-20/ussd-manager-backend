@@ -524,11 +524,12 @@ app.post('/', (req, res) => {
 
                     axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
                         console.log(resp.data)
+                        var program = resp.data.response.targetingProgram
                         if (program == null) {
                             program = "Ntayo"
                         }
                         else {
-                            program
+                            program = program
                         }
                         response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Ingano : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
 
