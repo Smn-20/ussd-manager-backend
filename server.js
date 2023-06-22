@@ -210,7 +210,7 @@ app.post('/', (req, res) => {
                             else {
                                 program = program
                             }
-                            response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Amakuru w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
+                            response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Umubare w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
 
                             res.set('Content-type', 'text/xml')
                             res.send(xml(response_, true));
@@ -322,7 +322,7 @@ app.post('/', (req, res) => {
 
                                 console.log(JSON.stringify({
                                     "householdId": resp.data.response.id,
-                                    "villageId": _villageCode,
+                                    "villageCode": _villageCode,
                                     'upi': upiInfo.upi,
                                     'latitude': upiInfo.centralCoordinate.lat,
                                     'longitude': upiInfo.centralCoordinate.lon,
@@ -486,7 +486,7 @@ app.post('/', (req, res) => {
 
         if (array.length === 4) {
             if (array[3] == "1") {
-                response_ = transformCommand(req.body.command, "1) Amakuru yimbitse y’urugo ^ 2) Abagize urugo", "C")
+                response_ = transformCommand(req.body.command, "1) Amakuru y’urugo arambuye ^ 2) Abagize urugo", "C")
 
                 res.set('Content-type', 'text/xml')
                 res.send(xml(response_, true));
@@ -531,7 +531,7 @@ app.post('/', (req, res) => {
                         else {
                             program = program
                         }
-                        response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Ingano : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
+                        response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Umubare w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
 
                         res.set('Content-type', 'text/xml')
                         res.send(xml(response_, true));
@@ -643,7 +643,7 @@ app.post('/', (req, res) => {
 
                             console.log(JSON.stringify({
                                 "householdId": resp.data.response.id,
-                                "villageId": _villageCode,
+                                "villageCode": _villageCode,
                                 'upi': upiInfo.upi,
                                 'latitude': upiInfo.centralCoordinate.lat,
                                 'longitude': upiInfo.centralCoordinate.lon,
