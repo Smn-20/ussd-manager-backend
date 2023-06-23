@@ -49,7 +49,14 @@ const addParamsMiddleware = (req, res, next) => {
     // else{
     if (myparam[req.body.command.sessionid[0]] !== undefined) {
         if (req.body.command.input[0] !== "124*313" && req.body.command.input[0] !== "") {
+            if(req.body.command.input[0] =="0"){
+            var myarray = myparam[req.body.command.sessionid[0]].split('*')
+            myarray.pop()
+            myparam[req.body.command.sessionid[0]]=myarray.join("*")
+            }
+            else{
             myparam[req.body.command.sessionid[0]] = myparam[req.body.command.sessionid[0]] + "*" + req.body.command.input[0]
+            }
         }
     }
     else {
