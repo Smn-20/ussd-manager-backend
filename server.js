@@ -189,7 +189,7 @@ app.post('/', (req, res) => {
 
                 if (array[3] == "3") {
 
-                    response_ = transformCommand(req.body.command, "Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^", "C")
+                    response_ = transformCommand(req.body.command, "Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^ 0) Gusubira Inyuma", "C")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -273,7 +273,7 @@ app.post('/', (req, res) => {
                     }
                 }
                 if (array[3] == "3") {
-                    response_ = transformCommand(req.body.command, "Andika Impamvu ^", "C")
+                    response_ = transformCommand(req.body.command, "Andika Impamvu ^ 0) Gusubira Inyuma", "C")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -493,7 +493,7 @@ app.post('/', (req, res) => {
 
         if (array.length === 4) {
             if (array[3] == "1") {
-                response_ = transformCommand(req.body.command, "1) Amakuru y’urugo arambuye ^ 2) Abagize urugo", "C")
+                response_ = transformCommand(req.body.command, "1) Amakuru yimbitse y’urugo ^ 2) Abagize urugo ^ 0) Gusubira Inyuma", "C")
 
                 res.set('Content-type', 'text/xml')
                 res.send(xml(response_, true));
@@ -510,7 +510,7 @@ app.post('/', (req, res) => {
 
             if (array[3] == "3") {
 
-                response_ = transformCommand(req.body.command, "Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^", "C")
+                response_ = transformCommand(req.body.command, "Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^ 0) Gusubira Inyuma", "C")
 
                 res.set('Content-type', 'text/xml')
                 res.send(xml(response_, true));
@@ -594,7 +594,7 @@ app.post('/', (req, res) => {
                 }
             }
             if (array[3] == "3") {
-                response_ = transformCommand(req.body.command, "Andika Impamvu ^", "C")
+                response_ = transformCommand(req.body.command, "Andika Impamvu ^ 0) Gusubira Inyuma", "C")
 
                 res.set('Content-type', 'text/xml')
                 res.send(xml(response_, true));
