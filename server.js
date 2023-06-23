@@ -210,7 +210,7 @@ app.post('/', (req, res) => {
                             else {
                                 program = program
                             }
-                            response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Amakuru w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
+                            response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Umubare w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
 
                             res.set('Content-type', 'text/xml')
                             res.send(xml(response_, true));
@@ -322,7 +322,7 @@ app.post('/', (req, res) => {
 
                                 console.log(JSON.stringify({
                                     "householdId": resp.data.response.id,
-                                    "villageId": _villageCode,
+                                    "villageCode": _villageCode,
                                     'upi': upiInfo.upi,
                                     'latitude': upiInfo.centralCoordinate.lat,
                                     'longitude': upiInfo.centralCoordinate.lon,
@@ -524,13 +524,14 @@ app.post('/', (req, res) => {
 
                     axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
                         console.log(resp.data)
+                        var program = resp.data.response.targetingProgram
                         if (program == null) {
                             program = "Ntayo"
                         }
                         else {
-                            program
+                            program = program
                         }
-                        response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Ingano : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
+                        response_ = transformCommand(req.body.command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Umubare w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
 
                         res.set('Content-type', 'text/xml')
                         res.send(xml(response_, true));
@@ -642,7 +643,7 @@ app.post('/', (req, res) => {
 
                             console.log(JSON.stringify({
                                 "householdId": resp.data.response.id,
-                                "villageId": _villageCode,
+                                "villageCode": _villageCode,
                                 'upi': upiInfo.upi,
                                 'latitude': upiInfo.centralCoordinate.lat,
                                 'longitude': upiInfo.centralCoordinate.lon,
