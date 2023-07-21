@@ -16,6 +16,8 @@ function transMessages(language){
     return messages
 }
 
+const baseURL = "https://api-gateway.uat.minaloc.gov.rw"
+
 function transformCommand(command, newMessage, flow) {
     const newCommand = {
         COMMAND: []
@@ -53,7 +55,7 @@ const ussdWorker = (array,command,res) => {
             if (array.length === 4) {
                 const options = {
                     method: 'POST',
-                    url: 'https://api-gateway.uat.minaloc.gov.rw/users/auth/login-ussd',
+                    url: `${baseURL}/users/auth/login-ussd`,
                     headers: {
                         'Content-Type': 'application/json',
                         // 'Authorization': `Bearer ${token}`,
@@ -132,7 +134,7 @@ const ussdWorker = (array,command,res) => {
                             }
                         };
 
-                        axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
+                        axios.get(`${baseURL}/households/view/household/by-document-number`, options).then((resp) => {
                             console.log(resp.data)
                             var program = resp.data.response.targetingProgram
                             if (program == null) {
@@ -160,9 +162,9 @@ const ussdWorker = (array,command,res) => {
                             }
                         };
 
-                        axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
+                        axios.get(`${baseURL}/households/view/household/by-document-number`, options).then((resp) => {
                             console.log(resp.data.response)
-                            axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/${resp.data.response.id}/members`, {
+                            axios.get(`${baseURL}/households/${resp.data.response.id}/members`, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${token}`,
@@ -215,7 +217,7 @@ const ussdWorker = (array,command,res) => {
                         }
                     };
 
-                    axios.get(`https://api-gateway.uat.minaloc.gov.rw/land/upi/details`, options).then((resp) => {
+                    axios.get(`${baseURL}/land/upi/details`, options).then((resp) => {
                         //   console.log(resp.data.response)
                         const upiInfo = resp.data.response
                         if (resp.data.status == true) {
@@ -229,11 +231,11 @@ const ussdWorker = (array,command,res) => {
                                 }
                             };
 
-                            axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options__).then((resp) => {
+                            axios.get(`${baseURL}/households/view/household/by-document-number`, options__).then((resp) => {
                                 console.log(resp.data)
                                 const options_ = {
                                     method: 'POST',
-                                    url: 'https://api-gateway.uat.minaloc.gov.rw/households/transfer',
+                                    url: `${baseURL}/households/transfer`,
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'Authorization': `Bearer ${token}`,
@@ -317,11 +319,11 @@ const ussdWorker = (array,command,res) => {
                         }
                     };
 
-                    axios.get(`https://api-gateway.uat.minaloc.gov.rw/households/view/household/by-document-number`, options).then((resp) => {
+                    axios.get(`${baseURL}/households/view/household/by-document-number`, options).then((resp) => {
                         console.log(resp.data.response)
                         const options_ = {
                             method: 'POST',
-                            url: 'https://api-gateway.uat.minaloc.gov.rw/households/public/appeals',
+                            url: `${baseURL}/households/public/appeal`,
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Authorization': `Bearer ${token}`,
