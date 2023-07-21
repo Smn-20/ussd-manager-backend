@@ -69,7 +69,7 @@ const ussdWorker = (array,command,res) => {
                     if (response.data.status == true) {
 
 
-                        response_ = transformCommand(command, "Ikaze kuri Social Registry ^ 1) Amakuru y'urugo ^ 2) Kwimuka ^ 3) Kujuririra amakuru ^ ", "C")
+                        response_ = transformCommand(command, transMessages(array[2]).initial, "C")
 
                         res.set('Content-type', 'text/xml')
                         res.send(xml(response_, true));
@@ -98,7 +98,7 @@ const ussdWorker = (array,command,res) => {
 
             if (array.length === 5) {
                 if (array[4] == "1") {
-                    response_ = transformCommand(command, "1) Amakuru y'urugo arambuye ^ 2) Abagize urugo", "C")
+                    response_ = transformCommand(command, transMessages(array[2]).hhInfo, "C")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -115,7 +115,7 @@ const ussdWorker = (array,command,res) => {
 
                 if (array[4] == "3") {
 
-                    response_ = transformCommand(command, "Hitamo ^ 1) Abanyamuryango ^ 2) Ibikorwa ugenewe ^ 3) Ishusho rusange y'umutungo ^ 0) Gusubira Inyuma", "C")
+                    response_ = transformCommand(command, transMessages(array[2]).appeal, "C")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -179,7 +179,7 @@ const ussdWorker = (array,command,res) => {
                                     }
                                 }
                                 else {
-                                    members += 'Ntabandi bagize urugo'
+                                    members += transMessages(array[2]).noMember
                                 }
 
 
@@ -290,7 +290,7 @@ const ussdWorker = (array,command,res) => {
 
                         }
                         else {
-                            response_ = transformCommand(command, "Mwanditse UPI itariyo", "B")
+                            response_ = transformCommand(command, transMessages(array[2]).wrongUpi, "B")
 
                             res.set('Content-type', 'text/xml')
                             res.send(xml(response_, true));
