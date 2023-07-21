@@ -31,7 +31,7 @@ const translations = {
         names: "Chef de foyer",
         code: "Code",
         size: "Taille des membres",
-        program: "Programmes",
+        program: "Programme",
         none: "Aucun",
         writereason: "Écrivez votre raison ^ 0) Retour",
         received: "Demande acceptée ^",
