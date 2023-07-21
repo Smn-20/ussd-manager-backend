@@ -16,7 +16,7 @@ function transMessages(language){
     return messages
 }
 
-const baseURL = "https://api-gateway.uat.minaloc.gov.rw"
+const baseURL = "https://api-gateway.sris.minaloc.gov.rw"
 
 function transformCommand(command, newMessage, flow) {
     const newCommand = {
