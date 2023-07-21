@@ -76,14 +76,14 @@ const ussdWorker = (array,command,res) => {
                         res.end
                     }
                     else {
-                        response_ = transformCommand(command, "Wanditse irangamuntu nabi", "B")
+                        response_ = transformCommand(command, transMessages(array[2]).wrongID, "B")
 
                         res.set('Content-type', 'text/xml')
                         res.send(xml(response_, true));
                         res.end
                     }
                 }).catch((err) => {
-                    response_ = transformCommand(command, "Wanditse irangamuntu nabi", "B")
+                    response_ = transformCommand(command, transMessages(array[2]).wrongID, "B")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -92,8 +92,6 @@ const ussdWorker = (array,command,res) => {
 
 
             }
-
-
 
 
             if (array.length === 5) {
@@ -106,7 +104,7 @@ const ussdWorker = (array,command,res) => {
                 }
 
                 if (array[4] == "2") {
-                    response_ = transformCommand(command, "Andika UPI yaho ushaka kwimukira ^", "C")
+                    response_ = transformCommand(command, transMessages(array[2]).enterupi, "C")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -138,12 +136,12 @@ const ussdWorker = (array,command,res) => {
                             console.log(resp.data)
                             var program = resp.data.response.targetingProgram
                             if (program == null) {
-                                program = "Ntayo"
+                                program = transMessages(array[2]).none
                             }
                             else {
                                 program = program
                             }
-                            response_ = transformCommand(command, `Irangamuntu y'umukuru w'urugo:${resp.data.response.householdHead.nationalId} ^ Umukuru w'urugo: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ Kode: ${resp.data.response.code} ^ Umubare w'abagize urugo : ${resp.data.response.size} ^ Porogarumu: ${program}`, "B")
+                            response_ = transformCommand(command, `${transMessages(array[2]).HHid}:${resp.data.response.householdHead.nationalId} ^ ${transMessages(array[2]).names}: ${resp.data.response.householdHead.firstName} ${resp.data.response.householdHead.lastName}  ^ ${transMessages(array[2]).code}: ${resp.data.response.code} ^ ${transMessages(array[2]).size} : ${resp.data.response.size} ^ ${transMessages(array[2]).program}: ${program}`, "B")
 
                             res.set('Content-type', 'text/xml')
                             res.send(xml(response_, true));
@@ -171,7 +169,7 @@ const ussdWorker = (array,command,res) => {
                                 }
                             }).then((resp) => {
                                 console.log(resp.data.response.members)
-                                var members = "Abagize urugo ^";
+                                var members = transMessages(array[2]).size + "^" ;
 
                                 if (resp.data.response.members.length > 0) {
                                     for (var i = 0; i < resp.data.response.members.length; i++) {
@@ -199,7 +197,7 @@ const ussdWorker = (array,command,res) => {
                     }
                 }
                 if (array[4] == "3") {
-                    response_ = transformCommand(command, "Andika Impamvu ^ 0) Gusubira Inyuma", "C")
+                    response_ = transformCommand(command, transMessages(array[2]).size, "C")
 
                     res.set('Content-type', 'text/xml')
                     res.send(xml(response_, true));
@@ -268,10 +266,10 @@ const ussdWorker = (array,command,res) => {
                                 axios.request(options_).then(function (response) {
                                     console.log(response.data.response)
                                     if (response.data.status == true) {
-                                        var transMessage = "Ubasabe bwakiriwe ^";
+                                        var transMessage = transMessages(array[2]).received;
                                     }
                                     else {
-                                        var transMessage = response.data.response;
+                                        var transMessage = transMessages(array[2]).failed;
                                     }
                                     response_ = transformCommand(command, transMessage, "B")
 
@@ -341,10 +339,10 @@ const ussdWorker = (array,command,res) => {
                         axios.request(options_).then(function (response) {
                             console.log(response.data)
                             if (response.data.status == true) {
-                                var appealMessage = "Ubasabe bwakiriwe ^";
+                                var appealMessage = transMessages(array[2]).received;
                             }
                             else {
-                                var appealMessage = "Appeal request failed ^";
+                                var appealMessage = transMessages(array[2]).failed;
                             }
                             response_ = transformCommand(command, appealMessage, "B")
 
