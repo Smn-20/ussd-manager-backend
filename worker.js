@@ -78,7 +78,7 @@ const ussdWorker = (array,command,res) => {
                         res.end
                     }
                     else {
-                        response_ = transformCommand(command, transMessages(array[2]).wrongID, "B")
+                        response_ = transformCommand(command, response.data.response, "B")
 
                         res.set('Content-type', 'text/xml')
                         res.send(xml(response_, true));
