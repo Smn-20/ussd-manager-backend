@@ -16,6 +16,18 @@ function transMessages(language){
     return messages
 }
 
+function getLanguage(language){
+    if(language=="1"){
+        return 'rw'
+    }
+    else if (language=="2"){
+        return 'en'
+    }
+    else if (language=="3"){
+        return 'fr'
+    }
+}
+
 const baseURL = "https://api-gateway.sris.minaloc.gov.rw"
 
 function transformCommand(command, newMessage, flow) {
@@ -60,7 +72,8 @@ const ussdWorker = (array,command,res) => {
                         'Content-Type': 'application/json',
                         // 'Authorization': `Bearer ${token}`,
                         'identificationNumber': array[3],
-                        'phone': command.msisdn[0].slice(2)
+                        'phone': command.msisdn[0].slice(2),
+                        'Accept-Language':getLanguage(array[2])
                     }
                 };
 
@@ -78,7 +91,7 @@ const ussdWorker = (array,command,res) => {
                         res.end
                     }
                     else {
-                        response_ = transformCommand(command, response.data.response, "B")
+                        response_ = transformCommand(command, response.data.message, "B")
 
                         res.set('Content-type', 'text/xml')
                         res.send(xml(response_, true));
