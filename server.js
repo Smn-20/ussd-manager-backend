@@ -23,7 +23,7 @@ function transformCommand(command, newMessage, flow) {
 
 
 const app = express()
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4005
 // middleware
 app.use(express.json())
 app.use(xmlParser())
