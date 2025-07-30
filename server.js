@@ -76,7 +76,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log("listening", port)
 })
 
